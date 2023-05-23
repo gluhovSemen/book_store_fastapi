@@ -43,7 +43,9 @@ class MostSoldDaysSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
 class SoldDaysSchema(BaseModel):
     day: str
+
     class Config:
         orm_mode = True

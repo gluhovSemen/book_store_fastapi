@@ -57,10 +57,7 @@ def get_most_sold_days(database: Session = Depends(get_db)):
     ]
 
 
-
-@router.get(
-    "/sales/book/{book_id}/sold_days", response_model=List[str]
-)
+@router.get("/sales/book/{book_id}/sold_days", response_model=List[str])
 def get_sold_days_for_book(book_id: int, database: Session = Depends(get_db)):
     sold_days = services.sold_days_for_book(database, book_id)
     return [str(day[0]) for day in sold_days]
