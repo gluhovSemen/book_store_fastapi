@@ -18,3 +18,7 @@ async def create_sale(request, database):
     database.refresh(new_sale)
 
     return new_sale
+
+def all_sales(database):
+    sales = database.query(models.Sales).all()
+    return sales

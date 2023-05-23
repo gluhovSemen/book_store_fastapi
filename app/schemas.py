@@ -11,3 +11,14 @@ class SalesSchema(BaseModel):
     purchase_price: float
     purchase_quantity: int
     created_at: datetime
+class SalesSchemaDisplay(BaseModel):
+    id: int
+    book_id: int
+    user_id: int
+    book_title: str
+    author: str
+    purchase_price: float
+    purchase_quantity: int
+    created_at: datetime
+    class Config:
+        orm_mode = True
