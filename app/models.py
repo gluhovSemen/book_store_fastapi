@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from sqlalchemy import Column, Integer, String, Float, DateTime
-from sqlalchemy.ext.declarative import declarative_base
 from app.database import Base
+
 
 class Sales(Base):
     __tablename__ = 'sales'
