@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from app.database import Base
@@ -12,4 +14,4 @@ class Sales(Base):
     author = Column(String)
     purchase_price = Column(Float)
     purchase_quantity = Column(Integer)
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now)

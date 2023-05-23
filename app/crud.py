@@ -1,24 +1,22 @@
-from sqlalchemy.orm import Session
-
-from .models import Sales
-from .schemas import SalesSchema
+from . import models
 
 
-def create_sale(db: Session, sale: SalesSchema):
+async def create_sale(request, database):
     # Create a new instance of the Sales model using the request data
-    new_sale = Sales(
-        book_id=sale.book_id,
-        user_id=sale.user_id,
-        book_title=sale.book_title,
-        author=sale.author,
-        purchase_price=sale.purchase_price,
-        purchase_quantity=sale.purchase_quantity,
-        created_at=sale.created_at
+    new_sale = models.Sales(
+
+        book_id=request.book_id,
+        user_id=request.user_id,
+        book_title=request.book_title,
+        author=request.author,
+        purchase_price=request.purchase_price,
+        purchase_quantity=request.purchase_quantity,
+
     )
 
     # Add the new sale to the session
-    db.add(new_sale)
-    db.commit()
-    db.refresh(new_sale)
+    database.add(new_sale)
+    database.commit()
+    database.refresh(new_sale)
 
     return new_sale
