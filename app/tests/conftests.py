@@ -5,7 +5,6 @@ from app.tests.factories import SalesFactory
 from main import app
 from pytest_postgresql import factories
 
-# postgresql = factories.postgresql(host='localhost', port=None, dbname='testdb', user='testuser', password='testpassword')
 
 
 @pytest.fixture

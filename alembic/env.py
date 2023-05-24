@@ -37,7 +37,7 @@ def get_url():
     db_user = setting.DATABASE_USERNAME
     db_password = setting.DATABASE_PASSWORD
     db_host = setting.DATABASE_HOST
-    db_name = setting.DATABASE_NAME
+    db_name = setting.TEST_BASE_NAME
     return f"postgresql://{db_user}:{db_password}@{db_host}/{db_name}"
 
 
