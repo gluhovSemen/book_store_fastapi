@@ -5,7 +5,7 @@ from app.database import Base
 
 
 class Sales(Base):
-    __tablename__ = 'sales'
+    __tablename__ = "sales"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     book_id = Column(Integer)

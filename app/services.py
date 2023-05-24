@@ -37,34 +37,30 @@ def most_expensive_sale(database):
 
 
 def most_sold_book_by_quantity(database):
+    total_sales = func.sum(models.Sales.purchase_quantity).label("total_sales")
+
     book_id = (
-        database.query(
-            models.Sales.book_id,
-            func.sum(models.Sales.purchase_quantity).label("total_sales"),
-        )
+        database.query(models.Sales.book_id, total_sales)
         .group_by(models.Sales.book_id)
-        .order_by(func.sum(models.Sales.purchase_quantity).desc())
+        .order_by(total_sales.desc())
         .first()
     )
+
     return book_id
 
 
 def most_sold_book_by_price(database):
+    total_value = func.sum(
+        models.Sales.purchase_price * models.Sales.purchase_quantity
+    ).label("total_value")
+
     book_id = (
-        database.query(
-            models.Sales.book_id,
-            func.sum(
-                models.Sales.purchase_price * models.Sales.purchase_quantity
-            ).label("total_value"),
-        )
+        database.query(models.Sales.book_id, total_value)
         .group_by(models.Sales.book_id)
-        .order_by(
-            func.sum(
-                models.Sales.purchase_price * models.Sales.purchase_quantity
-            ).desc()
-        )
+        .order_by(total_value.desc())
         .first()
     )
+
     return book_id
 
 
@@ -83,23 +79,27 @@ def sales_by_date(database, day):
 
 
 def most_sold_days(database):
+    day_label = func.date(models.Sales.created_at).label("day")
+    total_sales_label = func.sum(models.Sales.purchase_quantity).label("total_sales")
+
     most_sold_days = (
-        database.query(
-            func.date(models.Sales.created_at).label("day"),
-            func.sum(models.Sales.purchase_quantity).label("total_sales"),
-        )
-        .group_by(func.date(models.Sales.created_at))
-        .order_by(func.sum(models.Sales.purchase_quantity).desc())
+        database.query(day_label, total_sales_label)
+        .group_by(day_label)
+        .order_by(total_sales_label.desc())
         .all()
     )
+
     return most_sold_days
 
 
 def sold_days_for_book(database, book_id):
+    day_label = func.date(models.Sales.created_at).label("day")
+
     sold_days = (
-        database.query(func.date(models.Sales.created_at).label("day"))
+        database.query(day_label)
         .filter(models.Sales.book_id == book_id)
-        .group_by(func.date(models.Sales.created_at))
+        .group_by(day_label)
         .all()
     )
+
     return sold_days

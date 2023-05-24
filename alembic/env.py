@@ -22,6 +22,7 @@ fileConfig(config.config_file_name)
 import config as config_env
 from app.database import Base
 from app.models import Sales
+from app.settings import setting
 
 target_metadata = Base.metadata
 
@@ -33,10 +34,10 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    db_user = config_env.DATABASE_USERNAME
-    db_password = config_env.DATABASE_PASSWORD
-    db_host = config_env.DATABASE_HOST
-    db_name = config_env.DATABASE_NAME
+    db_user = setting.DATABASE_USERNAME
+    db_password = setting.DATABASE_PASSWORD
+    db_host = setting.DATABASE_HOST
+    db_name = setting.DATABASE_NAME
     return f"postgresql://{db_user}:{db_password}@{db_host}/{db_name}"
 
 
