@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from app import router as sales_router
-
+from celery import Celery
 app = FastAPI()
 
 app.include_router(sales_router.router)
