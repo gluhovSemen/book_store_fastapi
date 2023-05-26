@@ -9,11 +9,16 @@ router = APIRouter(prefix="/api")
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_sale(
-    request: schemas.BaseSalesSchema, database: Session = Depends(database.get_db)
+def create_sales(
+        requests: List[schemas.BaseSalesSchema],
+        database: Session = Depends(database.get_db),
 ):
-    new_sale = await services.create_sale(request, database)
-    return new_sale
+    new_sales = []
+    for request in requests:
+        new_sale = services.create_sale(request, database)
+        new_sales.append(new_sale)
+
+    return new_sales
 
 
 @router.get("/sales", response_model=List[schemas.SalesSchemaDisplay])

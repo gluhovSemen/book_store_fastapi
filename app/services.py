@@ -3,8 +3,7 @@ from sqlalchemy import func
 from . import models
 
 
-async def create_sale(request, database):
-    # Create a new instance of the Sales model using the request data
+def create_sale(request, database):
     new_sale = models.Sales(
         book_id=request.book_id,
         user_id=request.user_id,
@@ -14,7 +13,6 @@ async def create_sale(request, database):
         purchase_quantity=request.purchase_quantity,
     )
 
-    # Add the new sale to the session
     database.add(new_sale)
     database.commit()
     database.refresh(new_sale)
