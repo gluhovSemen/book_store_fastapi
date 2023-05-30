@@ -99,5 +99,5 @@ def sold_days_for_book(database, book_id):
         .group_by(day_label)
         .all()
     )
-
+    sold_days = [row.day for row in sold_days]
     return sold_days
