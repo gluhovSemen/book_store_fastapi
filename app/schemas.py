@@ -1,5 +1,6 @@
 from pydantic import BaseModel, validator
 from pydantic.schema import datetime
+from pydantic.validators import date
 
 
 class BaseSalesSchema(BaseModel):
@@ -33,7 +34,7 @@ class MostSoldBookSchema(BaseModel):
 
 
 class SoldDaysSchema(BaseModel):
-    day: str
+    day: date
 
     class Config:
         orm_mode = True

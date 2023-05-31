@@ -1,6 +1,5 @@
-import factory
-from factory.alchemy import SQLAlchemyModelFactory
 from datetime import datetime
+import factory
 from app.models import Sales
 
 

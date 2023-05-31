@@ -1,14 +1,8 @@
-from datetime import datetime
-
 import sqlalchemy
-from fastapi_sqlalchemy import db
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from starlette import status
 from starlette.testclient import TestClient
-from sqlalchemy_utils import database_exists, drop_database
-
-from app import models
 from app.database import get_db
 from app.models import Sales
 from app.settings import setting
@@ -61,7 +55,6 @@ def test_sales_create():
 
 
 def test_get_most_expensive_sale():
-    # Create some sample sales records in the test database
     response = client.post(
         "api/",
         json={
@@ -84,7 +77,6 @@ def test_get_most_expensive_sale():
             "purchase_quantity": 1,
         },
     )
-    # Send a GET request to the endpoint
     response = client.get("api/sales/most-expensive")
 
     assert response.status_code == 200
@@ -93,7 +85,6 @@ def test_get_most_expensive_sale():
 
 
 def test_get_most_sold_book_by_quantity():
-    # Create some sample sales records in the test database
     response = client.post(
         "api/",
         json={
@@ -116,15 +107,14 @@ def test_get_most_sold_book_by_quantity():
             "purchase_quantity": 1,
         },
     )
-    # Send a GET request to the endpoint
     response = client.get("api/sales/most-sold-book-by-quantity")
 
     assert response.status_code == 200
     data = response.json()
     assert data["book_id"] == 1
 
+
 def test_get_most_sold_book_by_price():
-    # Create some sample sales records in the test database
     response = client.post(
         "api/",
         json={
@@ -153,6 +143,7 @@ def test_get_most_sold_book_by_price():
     assert response.status_code == 200
     data = response.json()
     assert data["book_id"] == 2
+
 
 def test_get_sales_by_user():
     # Create some sample sales records in the test database

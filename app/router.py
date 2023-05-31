@@ -1,6 +1,6 @@
+from typing import List, Dict
 from fastapi import APIRouter, status, Depends, Query
 from sqlalchemy.orm import Session
-from typing import List, Dict
 from app import services, schemas
 from app import database
 from app.database import get_db
