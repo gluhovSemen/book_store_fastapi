@@ -26,21 +26,21 @@ def get_all_sales(database: Session = Depends(database.get_db)):
     return services.all_sales(database)
 
 
-@router.get("/sales/most-expensive", response_model=List[schemas.SalesSchemaDisplay])
+@router.get("/sales/most-expensive", response_model=schemas.SalesSchemaDisplay)
 def get_most_expensive_sale(database: Session = Depends(get_db)):
-    return [services.most_expensive_sale(database)]
+    return services.most_expensive_sale(database)
 
 
 @router.get(
-    "/sales/most-sold-book-by-quantity", response_model=List[schemas.MostSoldBookSchema]
+    "/sales/most-sold-book-by-quantity", response_model=schemas.MostSoldBookSchema
 )
 def get_most_sold_book_by_quantity(database: Session = Depends(get_db)):
-    return [services.most_sold_book_by_quantity(database)]
+    return services.most_sold_book_by_quantity(database)
 
 
-@router.get("/sales/most-sold-book-by-price", response_model=List[schemas.MostSoldBookSchema])
+@router.get("/sales/most-sold-book-by-price", response_model=schemas.MostSoldBookSchema)
 def get_most_sold_book_by_price(database: Session = Depends(get_db)):
-    return [services.most_sold_book_by_price(database)]
+    return services.most_sold_book_by_price(database)
 
 
 @router.get("/sales/user/{user_id}", response_model=List[schemas.SalesSchemaDisplay])
