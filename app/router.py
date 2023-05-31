@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Depends, Query
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Dict
 from app import services, schemas
 from app import database
 from app.database import get_db
@@ -10,8 +10,8 @@ router = APIRouter(prefix="/api")
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_sales(
-        requests: List[schemas.BaseSalesSchema],
-        database: Session = Depends(database.get_db),
+    requests: List[schemas.BaseSalesSchema],
+    database: Session = Depends(database.get_db),
 ):
     new_sales = []
     for request in requests:
@@ -62,7 +62,7 @@ def get_most_sold_days(database: Session = Depends(get_db)):
     ]
 
 
-@router.get("/sales/book/sold-days/{book_id}", response_model=List[str])
+@router.get("/sales/book/sold-days/{book_id}", response_model=List[Dict[str, str]])
 def get_sold_days_for_book(book_id: int, database: Session = Depends(get_db)):
     sold_days = services.sold_days_for_book(database, book_id)
-    return [str(day[0]) for day in sold_days]
+    return [{"day": str(day[0])} for day in sold_days]
